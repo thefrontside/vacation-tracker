@@ -1,11 +1,5 @@
-import React from "react";
-import { render } from "react-dom";
+import React from 'react';
+import { render } from 'react-dom';
+import App from './app';
 
-const App = () => {
-  return ( 
-    <div>
-      <h1>Hello Party People</h1>
-    </div>
-  )
-};
-render( <App/> , document.getElementById("app"));
+render(<App/> , document.getElementById('app'));

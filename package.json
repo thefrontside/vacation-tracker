@@ -5,16 +5,24 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel ./src/index.html",
-    "build": "parcel build ./src/index.html/"
+    "build": "parcel build ./src/index.html/",
+    "test": "bigtest run"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
+    "@babel/core": "^7.0.0-0",
+    "@babel/plugin-proposal-decorators": "^7.1.2",
+    "@babel/preset-react": "^7.0.0",
+    "@bigtest/cli": "^0.2.2",
+    "@bigtest/interactor": "^0.9.1",
+    "@bigtest/mocha": "^0.5.2",
+    "@bigtest/react": "^0.1.2",
+    "chai": "^4.2.0",
+    "mocha": ">= 4.0.0",
     "parcel-bundler": "^1.6.2"
   }
 }

@@ -1,0 +1,3 @@
+--serve "parcel ./bigtest/index.html"
+--serve-url "http://localhost:1234"
+--adapter mocha
