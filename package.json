@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "parcel ./src/index.html",
-    "build": "parcel build ./src/index.html/",
+    "start:test": "parcel ./bigtest/index.html",
+    "build": "parcel build ./src/index.html",
     "test": "bigtest run"
   },
   "dependencies": {
@@ -15,10 +16,12 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-0",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/plugin-proposal-decorators": "^7.1.2",
     "@babel/preset-react": "^7.0.0",
     "@bigtest/cli": "^0.2.2",
     "@bigtest/interactor": "^0.9.1",
+    "@bigtest/mirage": "^0.0.1",
     "@bigtest/mocha": "^0.5.2",
     "@bigtest/react": "^0.1.2",
     "chai": "^4.2.0",
