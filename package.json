@@ -7,6 +7,7 @@
     "start": "parcel ./src/index.html",
     "start:test": "parcel ./bigtest/index.html",
     "build": "parcel build ./src/index.html",
+    "lint": "eslint ./",
     "test": "bigtest run"
   },
   "dependencies": {
@@ -26,7 +27,11 @@
     "@bigtest/mirage": "^0.0.1",
     "@bigtest/mocha": "^0.5.2",
     "@bigtest/react": "^0.1.2",
+    "babel-eslint": "^10.0.1",
     "chai": "^4.2.0",
+    "eslint": "^5.8.0",
+    "eslint-plugin-prefer-let": "^1.0.1",
+    "eslint-plugin-react": "^7.11.1",
     "mocha": ">= 4.0.0",
     "parcel": "latest"
   }

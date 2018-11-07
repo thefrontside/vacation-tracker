@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Typography, TextField } from '@material-ui/core';
 
 const DetailRoute = ({ requestId }) => (
@@ -30,5 +31,9 @@ const DetailRoute = ({ requestId }) => (
     </form>
   </div>
 );
+
+DetailRoute.propTypes = {
+  requestId: PropTypes.number.isRequired
+};
 
 export default DetailRoute;

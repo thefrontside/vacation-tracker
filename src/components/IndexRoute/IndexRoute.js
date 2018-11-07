@@ -19,7 +19,7 @@ class IndexRoute extends Component {
   }
 
   render() {
-    const { requests } = this.state;
+    let { requests } = this.state;
     return (
       <div id="index-route">
         <Typography variant="h6" color="inherit" noWrap>
@@ -32,6 +32,6 @@ class IndexRoute extends Component {
       </div>
     );
   }
-};
+}
 
 export default IndexRoute;

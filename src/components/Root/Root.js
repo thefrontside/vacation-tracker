@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
 import {
   AppBar,
@@ -54,5 +55,8 @@ const NavBar = () => (
   </AppBar>
 );
 
+Root.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.element).isRequired
+};
 
 export default Root;

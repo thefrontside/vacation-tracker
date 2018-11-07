@@ -19,7 +19,7 @@ export function describeApp(name, setup, describeFn = describe) {
       });
 
       document.getElementById('bigtesting-container').style.height = '100%';
-      this.visit = this.app.history.navigate
+      this.visit = this.app.history.navigate;
     });
 
     let doSetup = typeof setup.suite === 'function' ? setup.suite : setup;
