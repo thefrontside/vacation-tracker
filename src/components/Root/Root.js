@@ -56,7 +56,7 @@ const NavBar = () => (
 );
 
 Root.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element).isRequired
+  children: PropTypes.array.isRequired
 };
 
 export default Root;
