@@ -1,83 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import {
-  Card,
-  CardContent,
-  Typography,
-  withStyles
-} from '@material-ui/core';
+import { Link } from '@reach/router';
 
-const styles = {
-  card: {
-    margin: '0.5em 0'
-  },
-  details: {
-    display: 'flex',
-    flexFlow: 'row nowrap',
-    justifyContent: 'space-around'
-  },
-  ownerName: {
-    alignSelf: 'center'
-  },
-  endDate: {
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  startDate: {
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  status: {
-    display: 'flex',
-    flexDirection: 'column'
-  }
-};
-
-const RequestListItem = ({ classes, request }) => {
+const RequestListItem = ({ request }) => {
   return (
-    <Card className={classes.card} data-test-id="request-list-item">
-      <CardContent className={classes.details}>
-        <Typography
-          className={classes.ownerName}
-          variant="subtitle1"
-          color="textPrimary"
-          data-test-id="owner-name"
-        >
-          {request.owner}
-        </Typography>
-        <div className={classes.startDate} data-test-id="start-date">
-          <Typography component="label" variant="subtitle2" color="textSecondary" >
-            From
-          </Typography>
-          <Typography variant="subtitle1" color="textPrimary" data-test-id="value" >
-            {moment(request.startDate).format('MM-DD-YYYY')}
-          </Typography>
+    <div className="level is-mobile">
+      <div className="level-item has-text-centered">
+        <div>
+          <p className="heading is-6">Requestee</p>
+          <p className="title is-5">{request.owner}</p>
         </div>
-        <div className={classes.endDate} data-test-id="end-date">
-          <Typography component="label" variant="subtitle2" color="textSecondary" >
-            To
-          </Typography>
-          <Typography variant="subtitle1" color="textPrimary" data-test-id="value" >
-            {moment(request.endDate).format('MM-DD-YYYY')}
-          </Typography>
+      </div>
+      <div className="level-item has-text-centered">
+        <div>
+          <p className="heading is-6">Start date</p>
+          <p className="title is-5">{moment(request.startDate).format('MM-DD-YYYY')}</p>
         </div>
-        <div className={classes.status} data-test-id="status">
-          <Typography component="label" variant="subtitle2" color="textSecondary" >
-            Status
-          </Typography>
-          <Typography variant="subtitle1" color="textPrimary" data-test-id="value" >
-            {request.status}
-          </Typography>
+      </div>
+      <div className="level-item has-text-centered">
+        <div>
+          <p className="heading is-6">End date</p>
+          <p className="title is-5">{moment(request.endDate).format('MM-DD-YYYY')}</p>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+      <div className="level-item has-text-centered">
+        <div>
+          <p className="heading is-6">Status</p>
+          <p className="title is-5">{request.status}</p>
+        </div>
+      </div>
+      <div className="level-item has-text-centered">
+        <Link to={`/requests/${request.id}`}>
+          <span className="icon" >
+            <i className="fas fa-edit"></i>
+          </span>
+        </Link>
+      </div>
+    </div>
   );
 };
 
 RequestListItem.propTypes = {
-  classes: PropTypes.object.isRequired,
   request: PropTypes.object
 };
 
-export default withStyles(styles)(RequestListItem);
+export default RequestListItem;

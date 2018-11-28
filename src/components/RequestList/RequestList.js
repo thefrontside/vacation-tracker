@@ -1,18 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core';
 
 import RequestListItem from '../RequestListItem';
 
-const styles = {
-  requestList: {
-    margin: '1em'
-  }
-};
-
-const RequestList = ({ classes, requests }) => {
+const RequestList = ({ requests }) => {
   return (
-    <div className={classes.requestList} data-test-id="request-list">
+    <div className="requestList" data-test-id="request-list">
       {requests.map(req => (
         <RequestListItem
           request={req}
@@ -24,8 +17,7 @@ const RequestList = ({ classes, requests }) => {
 };
 
 RequestList.propTypes = {
-  classes: PropTypes.object.isRequired,
   requests: PropTypes.arrayOf(PropTypes.object)
 };
 
-export default withStyles(styles)(RequestList);
+export default RequestList;

@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import {
-  Typography,
-} from '@material-ui/core';
 
 import RequestList from '../RequestList';
 
@@ -26,9 +23,9 @@ class IndexRoute extends Component {
     let { requests } = this.state;
     return (
       <div data-test-id="index-route">
-        <Typography variant="h6" color="inherit" noWrap data-test-id="index-header">
+        <h6 data-test-id="index-header">
           Requests
-        </Typography>
+        </h6>
         <br />
         <RequestList requests={requests} />
         {/* <Typography variant="h4" color="textSecondary" noWrap>

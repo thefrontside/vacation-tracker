@@ -1,62 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from '@reach/router';
-import {
-  AppBar,
-  Button,
-  CssBaseline,
-  createMuiTheme,
-  MuiThemeProvider,
-  Toolbar
-} from '@material-ui/core';
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: '#757ce8',
-      main: '#3f50b5',
-      dark: '#002884',
-      contrastText: '#fff',
-    },
-    secondary: {
-      light: '#ff7961',
-      main: '#f44336',
-      dark: '#ba000d',
-      contrastText: '#000',
-    },
-  },
-  typography: {
-    useNextVariants: true
-  }
-});
-
 const Root = ({ children }) => (
-  <MuiThemeProvider theme={theme}>
-    <CssBaseline />
-    <NavBar />
+  <section className="section">
+    <div className="container">
+      <NavBar />
 
-    <main>
       {children}
-    </main>
-  </MuiThemeProvider>
+    </div>
+  </section>
 );
 
 const NavBar = () => (
-  <AppBar position="static" color="primary">
-    <Toolbar>
-      <Button component={Link} to="/">
-        Requests
-      </Button>
-      <Button component={Link} to="/calendar">
-        Calendar
-      </Button>
-      <hr />
-    </Toolbar>
-  </AppBar>
+  <nav className="navbar" role="navigation" aria-label="main navigation">
+    <div className="navbar-menu is-mobile">
+      <div className="navbar-start">
+        <Link to="/" className="button">Requests</Link>
+        <Link to="/calendar" className="button">Calendar</Link>
+      </div>
+    </div>
+  </nav>
 );
 
 Root.propTypes = {
-  children: PropTypes.array.isRequired
+  children: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ]).isRequired
 };
 
 export default Root;

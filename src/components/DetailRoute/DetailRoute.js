@@ -1,39 +1,74 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Typography, TextField } from '@material-ui/core';
 
-const DetailRoute = ({ requestId }) => (
-  <div id="detail-route">
-    <Typography variant="h6" color="inherit" noWrap>
-      Editing Request ID: {`${requestId}`}
-    </Typography>
-    <form>
-      <TextField
-        id="owner-name"
-        label="Requestee"
-        margin="normal"
-      />
-      <TextField
-        id="start-date"
-        label="Start Date"
-        margin="normal"
-      />
-      <TextField
-        id="end-date"
-        label="End Date"
-        margin="normal"
-      />
-      <TextField
-        id="status"
-        label="Status"
-        margin="normal"
-      />
-    </form>
-  </div>
-);
+class DetailRoute extends Component {
+  static propTypes = {
+    requestId: PropTypes.string.isRequired
+  }; 
 
-DetailRoute.propTypes = {
-  requestId: PropTypes.number.isRequired
-};
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      request: {}
+    };
+  }
+
+  componentDidMount() {
+    fetch(`https://api.frontside.io/v1/requests/${this.props.requestId}`)
+      .then(response => response.json())
+      .then(data => this.setState({ request: data.request }));
+  }
+
+  render() {
+    const { requestId } = this.props;
+    const { request } = this.state;
+    return (
+      <div id="detail-route">
+        <h6>
+          Editing Request ID: {`${requestId}`}
+        </h6>
+        <form>
+          <div className="field">
+            <label className="label">Requestee</label>
+            <div className="control">
+              <span className="icon is-small is-left">
+                <i className="fas fa-user"></i>
+              </span>
+              <input className="input" type="text" value={request.owner} />
+            </div>
+          </div>
+          <div className="field">
+            <label className="label">Start Date</label>
+            <div className="control">
+              <span className="icon is-small is-left">
+                <i className="fas fa-calendar-alt"></i>
+              </span>
+              <input className="input" type="text" value={request.startDate} />
+            </div>
+          </div>
+          <div className="field">
+            <label className="label">End Date</label>
+            <div className="control">
+              <span className="icon is-small is-left">
+                <i className="fas fa-calendar-alt"></i>
+              </span>
+              <input className="input" type="text" value={request.endDate} />
+            </div>
+          </div>
+          <div className="field">
+            <label className="label">Status</label>
+            <div className="control">
+              <span className="icon is-small is-left">
+                <i className="fas fa-check-square"></i>
+              </span>
+              <input className="input" type="text" value={request.status} />
+            </div>
+          </div>
+        </form>
+      </div>
+    );
+  }
+}
 
 export default DetailRoute;
