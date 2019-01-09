@@ -1,7 +1,8 @@
 import { expect } from 'chai';
-import { it, describe } from '@bigtest/mocha';
+import { beforeEach, describe, it } from '@bigtest/mocha';
 import { describeApp } from '../helpers/setup-app';
 
+import DetailPage from '../interactors/detail-page';
 import IndexPage from '../interactors/index-page';
 
 describeApp('Index Route', () => {
@@ -11,11 +12,11 @@ describeApp('Index Route', () => {
   });
   
   describe('list of requests', () => {
-    it('displays the list', () => {
+    it('displays each item', () => {
       expect(IndexPage.requestList().length).to.equal(4);
     });
 
-    describe('each request', () => {
+    describe('for each request', () => {
       it('displays requestee field', () => {
         expect(IndexPage.requestList(0).ownerName).to.equal('Larry');
       });
@@ -26,13 +27,23 @@ describeApp('Index Route', () => {
       });
 
       it('displays start date field', () => {
-        expect(IndexPage.requestList(0).startDate.label).to.equal('From');
+        expect(IndexPage.requestList(0).startDate.label).to.equal('Start date');
         expect(IndexPage.requestList(0).startDate.text).to.equal('01-01-2019');
       });
 
       it('displays end date field', () => {
-        expect(IndexPage.requestList(0).endDate.label).to.equal('To');
+        expect(IndexPage.requestList(0).endDate.label).to.equal('End date');
         expect(IndexPage.requestList(0).endDate.text).to.equal('12-31-2019');
+      });
+
+      describe('selecting for edit', () => {
+        beforeEach(() => {
+          return IndexPage.requestList(0).clickEdit();
+        });
+
+        it('navigates to the record editing page', () => {
+          expect(DetailPage.isPresent).to.be.true;
+        });
       });
     });
   });
