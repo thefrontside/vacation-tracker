@@ -4,11 +4,28 @@ import { describeApp } from '../helpers/setup-app';
 
 import DetailPage from '../interactors/detail-page';
 import IndexPage from '../interactors/index-page';
+import CreatePage from '../interactors/create-page';
 
 describeApp('Index Route', () => {
   it('has a heading', () => {
     expect(IndexPage.hasHeading).to.equal(true);
     expect(IndexPage.headingText).to.equal('Requests');
+  });
+
+  describe('create new request button', () => {
+    it('exists on the page', () => {
+      expect(IndexPage.isCreateButtonVisible).to.be.true;
+    });
+
+    describe('when clicked', () => {
+      beforeEach(() => {
+        return IndexPage.clickCreateButton();
+      });
+
+      it('navigates to the create form', () => {
+        expect(CreatePage.isPresent).to.be.true;
+      });
+    });
   });
   
   describe('list of requests', () => {
