@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { beforeEach, describe, it } from '@bigtest/mocha';
 
-import { describeApp } from '..helpers/setup-app';
+import { describeApp } from '../helpers/setup-app';
 import CreatePage from '../interactors/create-page';
 import IndexPage from '../interactors/index-page';
 
@@ -11,26 +11,25 @@ describeApp('Create Detail Route', () => {
   });
 
   it('has disabled the save button when form is empty', () => {
-    expect(CreatePage.isSaveDisabled).to.be.true;
+    expect(CreatePage.form.isSaveDisabled).to.be.true;
   });
 
   describe('creating a record', () => {
     describe('with filled in values', () => {
-      beforeEach(() => {
-        return CreatePage
-          .changeOwnerName('Amber')
-          .changeStartDate('02-26-2019')
-          .changeEndDate('03-01-2019');
+      beforeEach(async () => {
+        await CreatePage.form.changeOwnerName('Amber');
+        await CreatePage.form.changeStartDate('12');
+        await CreatePage.form.changeEndDate('22');
       });
-
+     
       it('updates the form values accordingly', () => {
-        expect(CreatePage.ownerName).to.equal('Amber');
-        expect(CreatePage.startDate).to.equal('02-26-2019');
-        expect(CreatePage.endDate).to.equal('03-01-2019');
+        expect(CreatePage.form.ownerName).to.equal('Amber');
+        expect(CreatePage.form.startDate.value).to.equal('01-12-2019');
+        expect(CreatePage.form.endDate.value).to.equal('01-22-2019');
       });
 
       it('enables the save button', () => {
-        expect(CreatePage.isSaveDisabled).to.be.false;
+        expect(CreatePage.form.isSaveDisabled).to.be.false;
       });
 
       describe('clicking save', () => {
@@ -38,16 +37,16 @@ describeApp('Create Detail Route', () => {
         beforeEach(function() {
           this.server.post('/requests', (db, netReq) => {
             payload = JSON.parse(netReq.requestBody);
-            return db.requests.insert(payload);
+            return db.requests.create(payload);
           });
 
-          return CreatePage.clickSave();
+          return CreatePage.form.clickSave();
         });
 
         it('sends a POST request with the full payload', () => {
           expect(payload.owner).to.equal('Amber');
-          expect(payload.startDate).to.equal('02-26-2019');
-          expect(payload.endDate).to.equal('03-01-2019');
+          expect(payload.startDate).to.equal('2019-01-13T00:00:00.000Z');
+          expect(payload.endDate).to.equal('2019-01-23T00:00:00.000Z');
           expect(payload.status).to.equal('Pending');
         });
 
@@ -56,10 +55,11 @@ describeApp('Create Detail Route', () => {
         });
 
         it('shows the new record on the index page', () => {
-          expect(IndexPage.requestList(0).ownerName).to.equal('Amber');
-          expect(IndexPage.requestList(0).startDate).to.equal('02-26-2019');
-          expect(IndexPage.requestList(0).endDate).to.equal('03-01-2019');
-          expect(IndexPage.requestList(0).status).to.equal('Pending');
+          let lastIndex = IndexPage.requestList().length - 1;
+          expect(IndexPage.requestList(lastIndex).ownerName).to.equal('Amber');
+          expect(IndexPage.requestList(lastIndex).startDate.text).to.equal('01-12-2019');
+          expect(IndexPage.requestList(lastIndex).endDate.text).to.equal('01-22-2019');
+          expect(IndexPage.requestList(lastIndex).status.text).to.equal('Pending');
         });
       });
     });
