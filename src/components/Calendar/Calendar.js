@@ -9,7 +9,11 @@ const allViews = Object.values(BigCalendar.Views);
 
 const Calendar = ({ events, date, onNavigate }) => {
   return (
-    <div className="calendar-container" style={{height: "600px"}}>
+    <div
+      className="calendar-container"
+      style={{height: "600px"}}
+      data-test-calendar
+    >
       <BigCalendar
         localizer={localizer}
         events={events}

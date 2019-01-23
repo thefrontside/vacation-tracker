@@ -38,7 +38,8 @@ class CalendarRoute extends Component {
 
   get date() {
     let { date } = this.props;
-    return new Date(date);
+    let newDate = date ? moment(date, 'MM-DD-YYYY') : moment();
+    return newDate.toDate();
   }
 
   get events() {
@@ -58,7 +59,7 @@ class CalendarRoute extends Component {
 
   render() { 
     return (
-      <div id="calendar-route">
+      <div data-test-calendar-route>
         <h6>
           Calendar
         </h6>
