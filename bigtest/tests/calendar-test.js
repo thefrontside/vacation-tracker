@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { beforeEach, it } from '@bigtest/mocha';
+import { beforeEach, describe, it } from '@bigtest/mocha';
 import { describeApp } from '../helpers/setup-app';
 
 import CalendarPage from '../interactors/calendar-page.js';

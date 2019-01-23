@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import BigCalendar from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -23,6 +24,12 @@ const Calendar = ({ events, date, onNavigate }) => {
       />
     </div>
   );
-}
+};
+
+Calendar.propTypes = {
+  date: PropTypes.date,
+  events: PropTypes.arrayOf(PropTypes.object),
+  onNavigate: PropTypes.func
+};
 
 export default Calendar;

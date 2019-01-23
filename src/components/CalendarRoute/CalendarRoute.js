@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import { addOffset } from '../../utils';
 import Calendar from '../Calendar';
 
 class CalendarRoute extends Component {
+  static propTypes = {
+    date: PropTypes.string,
+    navigate: PropTypes.func
+  };
+
   _isMounted = false;
 
   constructor(props) {
@@ -54,7 +60,7 @@ class CalendarRoute extends Component {
 
   onNavigate = (date) => {
     let formattedDate = moment(date).format('MM-DD-YYYY');
-    this.props.navigate(`/calendar/${formattedDate}`)
+    this.props.navigate(`/calendar/${formattedDate}`);
   }
 
   render() { 
