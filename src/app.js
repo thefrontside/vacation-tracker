@@ -12,6 +12,7 @@ const App = () => (
   <Root>
     <Router>
       <IndexRoute path="/" />
+      <CalendarRoute path="/calendar/:date" />
       <CalendarRoute path="/calendar" />
       <CreateRoute path="/requests/new" />
       <DetailRoute path="/requests/:requestId" />
