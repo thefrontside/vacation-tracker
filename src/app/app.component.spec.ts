@@ -62,6 +62,22 @@ describe("AppComponent", () => {
     expect(app.hasHeading).toBe(true);
   }));
 
+  describe('interacting with a button', () => {
+    it("not showing message on page load", () => {
+      expect(app.messageIsPresent).toBe(false);
+    });
+
+    describe("clicking on the toggle button", () => {
+      beforeEach(() => {
+        return app.clickToggleButton();
+      });
+
+      it("shows the message", () => {
+        expect(app.messageIsPresent).toBe(true);
+      });
+    });
+  });
+
   describe("navigating to HelloWorld", () => {
     beforeEach(() => {
       return router.navigateByUrl("/hello-world");

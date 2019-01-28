@@ -5,4 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './hello-world.component.html'
 })
 export class HelloWorldComponent {
+  show = false;
 }
