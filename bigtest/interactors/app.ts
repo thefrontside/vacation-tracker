@@ -1,11 +1,11 @@
-import { interactor, isPresent, scoped } from '@bigtest/interactor';
+import { interactor, isPresent, scoped, text } from '@bigtest/interactor';
 
 @interactor
 class AppInteractor {
   static defaultScope = 'app-root';
 
   hasHeading = isPresent('h1');
-  hello = scoped('hello-world');
+  helloWorldText = text('hello-world')
 }
 
 export default AppInteractor;

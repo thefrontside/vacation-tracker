@@ -1,14 +1,16 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { RouterModule } from "@angular/router";
+import { RouterModule, Router } from "@angular/router";
 import { Location } from "@angular/common";
 import { SpyLocation } from "@angular/common/testing";
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 
 import { AppComponent } from "./app.component";
+import { HelloWorldComponent } from "./hello-world.component";
+
 import { routes } from "../app/app-routing.module";
-import AppInteractor from '../../bigtest/interactors/app';
-import { when } from '@bigtest/convergence';
+import AppInteractor from "../../bigtest/interactors/app";
+import { when } from "@bigtest/convergence";
 
 function replaceLocation(module) {
   let [ROUTER_PROVIDERS, providers] = module.providers;
@@ -16,7 +18,9 @@ function replaceLocation(module) {
     ngModule: module.ngModule,
     providers: [
       ROUTER_PROVIDERS.map(provider =>
-        provider === Location ? ({ provide: Location, useClass: SpyLocation }) : provider
+        provider === Location
+          ? { provide: Location, useClass: SpyLocation }
+          : provider
       ),
       ...providers
     ]
@@ -29,7 +33,7 @@ function replaceLocation(module) {
 class AppTestRoutingModule {}
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, HelloWorldComponent],
   imports: [BrowserModule, AppTestRoutingModule],
   bootstrap: [AppComponent]
 })
@@ -39,15 +43,13 @@ describe("AppComponent", () => {
   let appModule;
   let appRoot;
   let app = new AppInteractor();
-  let location: SpyLocation;
+  let router: Router;
 
   beforeEach(async () => {
     appRoot = document.createElement("app-root");
     document.body.appendChild(appRoot);
-    appModule = await platformBrowserDynamic().bootstrapModule(
-      AppTestModule
-    );
-    location = appModule.injector.get(Location);
+    appModule = await platformBrowserDynamic().bootstrapModule(AppTestModule);
+    router = appModule.injector.get(Router);
   });
 
   afterEach(async () => {
@@ -60,18 +62,17 @@ describe("AppComponent", () => {
     expect(app.hasHeading).toBe(true);
   }));
 
-  describe('navigating to HelloWorld', () => {
+  describe("navigating to HelloWorld", () => {
     beforeEach(() => {
-      location.go('/hello-world');
+      return router.navigateByUrl("/hello-world");
     });
 
-    it('changed location', () => {
-      expect(location.path).toBe('/hello-world');
+    it("changed location", () => {
+      expect(router.url).toBe("/hello-world");
     });
 
-    it('shows Hello World', when(() => {
-      expect(app.hello.isPresent).toBe(true);
+    it("shows Hello World", when(() => {
+      expect(app.helloWorldText).toBe('Hello World!!!');
     }));
   });
-
 });

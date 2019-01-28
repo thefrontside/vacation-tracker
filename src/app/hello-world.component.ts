@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'hello-world',
-  templateUrl: './hello.component.html'
+  templateUrl: './hello-world.component.html'
 })
 export class HelloWorldComponent {
 }
