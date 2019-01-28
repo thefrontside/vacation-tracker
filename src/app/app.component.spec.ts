@@ -7,6 +7,8 @@ import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 
 import { AppComponent } from "./app.component";
 import { routes } from "../app/app-routing.module";
+import AppInteractor from '../../bigtest/interactors/app';
+import { when } from '@bigtest/convergence';
 
 function replaceLocation(module) {
   let [ROUTER_PROVIDERS, providers] = module.providers;
@@ -36,6 +38,8 @@ class AppTestModule {}
 describe("AppComponent", () => {
   let appModule;
   let appRoot;
+  let app = new AppInteractor();
+  let location: SpyLocation;
 
   beforeEach(async () => {
     appRoot = document.createElement("app-root");
@@ -43,7 +47,7 @@ describe("AppComponent", () => {
     appModule = await platformBrowserDynamic().bootstrapModule(
       AppTestModule
     );
-    let location = appModule.injector.get(Location);
+    location = appModule.injector.get(Location);
   });
 
   afterEach(async () => {
@@ -52,7 +56,22 @@ describe("AppComponent", () => {
     }
   });
 
-  it("should create the app", () => {
-    expect(true).toBeTruthy();
+  it("has a heading", when(() => {
+    expect(app.hasHeading).toBe(true);
+  }));
+
+  describe('navigating to HelloWorld', () => {
+    beforeEach(() => {
+      location.go('/hello-world');
+    });
+
+    it('changed location', () => {
+      expect(location.path).toBe('/hello-world');
+    });
+
+    it('shows Hello World', when(() => {
+      expect(app.hello.isPresent).toBe(true);
+    }));
   });
+
 });
