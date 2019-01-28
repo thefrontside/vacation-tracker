@@ -1,29 +1,58 @@
-import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
+import { TestBed, async } from "@angular/core/testing";
+import { RouterTestingModule } from "@angular/router/testing";
+import { AppComponent } from "./app.component";
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { RouterModule } from "@angular/router";
 
-import { Location, LocationStrategy } from '@angular/common';
-import { MockLocationStrategy, SpyLocation } from '@angular/common/testing';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { AppModule } from './app.module';
-import { DOCUMENT } from '@angular/platform-browser';
+import { Location, LocationStrategy } from "@angular/common";
+import { MockLocationStrategy, SpyLocation } from "@angular/common/testing";
+import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 
-describe('AppComponent', () => {
+// imports RouterModule.forRoot(routes)
+// imports appRoutingModule
+import { AppModule } from "./app.module";
+
+import { DOCUMENT } from "@angular/platform-browser";
+import { routes } from "../app/app-routing.module";
+
+function replaceLocation(module) {
+  let [ROUTER_PROVIDERS, providers] = module.providers;
+  return {
+    ngModule: module.ngModule,
+    providers: [
+      ROUTER_PROVIDERS.map(provider =>
+        provider === Location ? ({ provide: Location, useClass: SpyLocation }) : provider
+      ),
+      ...providers
+    ]
+  };
+}
+@NgModule({
+  imports: [replaceLocation(RouterModule.forRoot(routes))],
+  exports: [RouterModule]
+})
+class AppTestRoutingModule {}
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, AppTestRoutingModule],
+  bootstrap: [AppComponent]
+})
+class AppTestModule {}
+
+describe("AppComponent", () => {
   let appModule;
   let appRoot;
   let location: Location;
 
   beforeEach(async () => {
-    appRoot = document.createElement('app-root');
+    appRoot = document.createElement("app-root");
     document.body.appendChild(appRoot);
-    debugger;
-    appModule = await platformBrowserDynamic([
-      {provide: Location, useClass: SpyLocation, deps: []},
-      {provide: LocationStrategy, useClass: MockLocationStrategy, deps: [DOCUMENT]}
-    ])
-      .bootstrapModule(AppModule);
+    appModule = await platformBrowserDynamic().bootstrapModule(
+      AppTestModule
+    );
     location = appModule.injector.get(Location);
-    RouterTestingModule 
     debugger;
   });
 
@@ -33,7 +62,7 @@ describe('AppComponent', () => {
     }
   });
 
-  it('should create the app', () => {
+  it("should create the app", () => {
     expect(true).toBeTruthy();
   });
 
@@ -47,7 +76,6 @@ describe('AppComponent', () => {
   //     ],
   //   }).compileComponents();
   // }));
-
 
   // it('should create the app', () => {
   //   const fixture = TestBed.createComponent(AppComponent);
