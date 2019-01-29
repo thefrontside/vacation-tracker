@@ -5,11 +5,11 @@ import { Location } from "@angular/common";
 import { SpyLocation } from "@angular/common/testing";
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 
-import { AppComponent } from "./app.component";
-import { HelloWorldComponent } from "./hello-world.component";
+import { AppComponent } from "../../src/app/app.component";
+import { HelloWorldComponent } from "../../src/app/hello-world.component";
 
-import { routes } from "../app/app-routing.module";
-import AppInteractor from "../../bigtest/interactors/app";
+import { routes } from "../../src/app/app-routing.module";
+import AppInteractor from "../interactors/app";
 import { when } from "@bigtest/convergence";
 
 function replaceLocation(module) {
@@ -58,11 +58,14 @@ describe("AppComponent", () => {
     }
   });
 
-  it("has a heading", when(() => {
-    expect(app.hasHeading).toBe(true);
-  }));
+  it(
+    "has a heading",
+    when(() => {
+      expect(app.hasHeading).toBe(true);
+    })
+  );
 
-  describe('interacting with a button', () => {
+  describe("interacting with a button", () => {
     it("not showing message on page load", () => {
       expect(app.messageIsPresent).toBe(false);
     });
@@ -87,8 +90,11 @@ describe("AppComponent", () => {
       expect(router.url).toBe("/hello-world");
     });
 
-    it("shows Hello World", when(() => {
-      expect(app.helloWorldText).toBe('Hello World!!!');
-    }));
+    it(
+      "shows Hello World",
+      when(() => {
+        expect(app.helloWorldText).toBe("Hello World!!!");
+      })
+    );
   });
 });

@@ -5,7 +5,16 @@
     "module": "commonjs",
     "target": "es5",
     "types": [
-      "node"
+      "node",
+      "jasmine"
     ]
-  }
+  },
+  "files": [
+    "../src/polyfills.ts",
+    "./index.ts"
+  ],
+  "include": [
+    "**/*test.ts",
+    "**/*.d.ts"
+  ]
 }
