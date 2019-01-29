@@ -1,62 +1,11 @@
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { RouterModule, Router } from "@angular/router";
-import { Location } from "@angular/common";
-import { SpyLocation } from "@angular/common/testing";
-import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
-
-import { AppComponent } from "../../src/app/app.component";
-import { HelloWorldComponent } from "../../src/app/hello-world.component";
-
-import { routes } from "../../src/app/app-routing.module";
 import AppInteractor from "../interactors/app";
 import { when } from "@bigtest/convergence";
-
-function replaceLocation(module) {
-  let [ROUTER_PROVIDERS, providers] = module.providers;
-  return {
-    ngModule: module.ngModule,
-    providers: [
-      ROUTER_PROVIDERS.map(provider =>
-        provider === Location
-          ? { provide: Location, useClass: SpyLocation }
-          : provider
-      ),
-      ...providers
-    ]
-  };
-}
-@NgModule({
-  imports: [replaceLocation(RouterModule.forRoot(routes))],
-  exports: [RouterModule]
-})
-class AppTestRoutingModule {}
-
-@NgModule({
-  declarations: [AppComponent, HelloWorldComponent],
-  imports: [BrowserModule, AppTestRoutingModule],
-  bootstrap: [AppComponent]
-})
-class AppTestModule {}
+import { setupApp } from "../helpers/setup-app";
 
 describe("AppComponent", () => {
-  let appModule;
-  let appRoot;
   let app = new AppInteractor();
-  let router: Router;
 
-  beforeEach(async () => {
-    appRoot = document.createElement("app-root");
-    document.body.appendChild(appRoot);
-    appModule = await platformBrowserDynamic().bootstrapModule(AppTestModule);
-    router = appModule.injector.get(Router);
-  });
-
-  afterEach(async () => {
-    if (appModule) {
-      await appModule.destroy();
-    }
-  });
+  setupApp();
 
   it(
     "has a heading",
@@ -82,12 +31,12 @@ describe("AppComponent", () => {
   });
 
   describe("navigating to HelloWorld", () => {
-    beforeEach(() => {
-      return router.navigateByUrl("/hello-world");
+    beforeEach(function() {
+      return this.router.navigateByUrl("/hello-world");
     });
 
-    it("changed location", () => {
-      expect(router.url).toBe("/hello-world");
+    it("changed location", function() {
+      expect(this.router.url).toBe("/hello-world");
     });
 
     it(
