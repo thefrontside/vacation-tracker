@@ -1,52 +1,20 @@
 
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { RouterModule, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { Location } from "@angular/common";
 import { SpyLocation } from "@angular/common/testing";
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 
-import { AppComponent } from "../../src/app/app.component";
-import { HelloWorldComponent } from "../../src/app/hello-world.component";
-
-import { routes } from "../../src/app/app-routing.module";
-
-export function setupApp() {
+export function setupApp(AppModule) {
   let appModule;
 
-  function replaceLocation(module) {
-    let [ROUTER_PROVIDERS, providers] = module.providers;
-    return {
-      ngModule: module.ngModule,
-      providers: [
-        ROUTER_PROVIDERS.map(provider =>
-          provider === Location
-            ? { provide: Location, useClass: SpyLocation }
-            : provider
-        ),
-        ...providers
-      ]
-    };
-  }
-  @NgModule({
-    imports: [replaceLocation(RouterModule.forRoot(routes))],
-    exports: [RouterModule]
-  })
-  class AppTestRoutingModule {}
-  
-  @NgModule({
-    declarations: [AppComponent, HelloWorldComponent],
-    imports: [BrowserModule, AppTestRoutingModule],
-    bootstrap: [AppComponent]
-  })
-  class AppTestModule {}
+  AppModule.ngInjectorDef.imports[1].ngInjectorDef.imports[0].providers[0][0] = { provide: Location, useClass: SpyLocation };
 
   beforeEach(async function () {
     let root = this.root = document.createElement("app-root");
 
     document.body.appendChild(root);
 
-    appModule = await platformBrowserDynamic().bootstrapModule(AppTestModule);
+    appModule = await platformBrowserDynamic().bootstrapModule(AppModule);
 
     this.router = appModule.injector.get(Router);
   });

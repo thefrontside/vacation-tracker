@@ -1,11 +1,12 @@
 import AppInteractor from "../interactors/app";
 import { when } from "@bigtest/convergence";
 import { setupApp } from "../helpers/setup-app";
+import { AppModule } from "../../src/app/app.module";
 
 describe("AppComponent", () => {
   let app = new AppInteractor();
 
-  setupApp();
+  setupApp(AppModule);
 
   it(
     "has a heading",
