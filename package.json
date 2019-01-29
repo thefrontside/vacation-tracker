@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "bigtest": "ng test bigtest",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
