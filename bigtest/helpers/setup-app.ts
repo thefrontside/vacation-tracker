@@ -3,9 +3,10 @@ import { Router } from "@angular/router";
 import { Location } from "@angular/common";
 import { SpyLocation } from "@angular/common/testing";
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+import startMirage from '../network/start';
+import { NgZone } from '@angular/core';
 
 export function setupApp(AppModule) {
-  let appModule;
 
   AppModule.ngInjectorDef.imports[1].ngInjectorDef.imports[0].providers[0][0] = { provide: Location, useClass: SpyLocation };
 
@@ -14,14 +15,27 @@ export function setupApp(AppModule) {
 
     document.body.appendChild(root);
 
-    appModule = await platformBrowserDynamic().bootstrapModule(AppModule);
+    this.app = await platformBrowserDynamic().bootstrapModule(AppModule);
 
-    this.router = appModule.injector.get(Router);
+    this.server = startMirage();
+    this.server.logging = false;
+
+    let router = this.app.injector.get(Router);
+    let zone = this.app.injector.get(NgZone);
+
+    this.visit = url => zone.run(() => router.navigateByUrl(url));
+
+    Object.defineProperty(this, 'currentURL', {
+      get() {
+        return router.url;
+      }
+    })
   });
 
-  afterEach(async () => {
-    if (appModule) {
-      await appModule.destroy();
+  afterEach(async function() {
+    if (this.app) {
+      await this.app.destroy();
     }
+    this.server.shutdown();
   });
 }

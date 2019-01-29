@@ -7,10 +7,14 @@ export class Product {
   title: String = "";
   date: Date = null;
 
-  constructor({ title, date }: { title: string; date: string }) {
+  constructor({ title, date }) {
     this.title = title;
     this.date = new Date(date);
   }
+}
+
+interface ProductsPayload {
+  products: Product[];
 }
 
 @Injectable({
@@ -22,6 +26,9 @@ export class ProductsService {
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
-    return this.http.get(this.API_URL + "products").pipe(map((data: any[]) => data.map(d => new Product(d))));
+    return this.http.get(this.API_URL + "products")
+      .pipe(
+        map((data: ProductsPayload) => data.products.map(d => new Product(d)))
+      );
   }
 }

@@ -11,6 +11,8 @@ class AppInteractor {
   helloWorldText = text('hello-world');
 
   productList = collection('[data-test-product]');
+
+  isProductsListPresent = isPresent('[data-test-products-list]');
 }
 
 export default AppInteractor;

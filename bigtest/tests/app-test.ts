@@ -2,6 +2,7 @@ import AppInteractor from "../interactors/app";
 import { when } from "@bigtest/convergence";
 import { setupApp } from "../helpers/setup-app";
 import { AppModule } from "../../src/app/app.module";
+import * as expect from "expect";
 
 describe("AppComponent", () => {
   let app = new AppInteractor();
@@ -33,11 +34,11 @@ describe("AppComponent", () => {
 
   describe("navigating to HelloWorld", () => {
     beforeEach(function() {
-      return this.router.navigateByUrl("/hello-world");
+      return this.visit("/hello-world");
     });
 
     it("changed location", function() {
-      expect(this.router.url).toBe("/hello-world");
+      expect(this.currentURL).toBe("/hello-world");
     });
 
     it(
@@ -50,7 +51,15 @@ describe("AppComponent", () => {
 
   describe("navigating to a products page", () => {
     beforeEach(function() {
-      return this.router.navigateByUrl("/products");
+      return this.visit("/products");
+    });
+
+    it("navigated to products", function() {
+      expect(this.currentURL).toBe("/products");
+    });
+
+    it('showed the product list page', function() {
+      expect(app.isProductsListPresent).toBe(true);
     });
 
     it("shows a list of products", when(() => {
