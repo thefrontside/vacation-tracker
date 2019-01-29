@@ -47,4 +47,14 @@ describe("AppComponent", () => {
       })
     );
   });
+
+  describe("navigating to a products page", () => {
+    beforeEach(function() {
+      return this.router.navigateByUrl("/products");
+    });
+
+    it("shows a list of products", when(() => {
+      expect(app.productList().length).toBe(3);
+    }));
+  });
 });

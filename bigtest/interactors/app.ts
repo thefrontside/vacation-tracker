@@ -1,4 +1,4 @@
-import { interactor, isPresent, clickable, text } from '@bigtest/interactor';
+import { interactor, isPresent, clickable, text, collection } from '@bigtest/interactor';
 
 @interactor
 class AppInteractor {
@@ -8,7 +8,9 @@ class AppInteractor {
   messageIsPresent = isPresent('[data-test-message]');
   clickToggleButton = clickable('[data-test-toggle-button]');
 
-  helloWorldText = text('hello-world')
+  helloWorldText = text('hello-world');
+
+  productList = collection('[data-test-product]');
 }
 
 export default AppInteractor;
