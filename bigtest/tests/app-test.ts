@@ -9,12 +9,9 @@ describe("AppComponent", () => {
 
   setupApp(AppModule);
 
-  it(
-    "has a heading",
-    when(() => {
-      expect(app.hasHeading).toBe(true);
-    })
-  );
+  it("has a heading", when(() => {
+    expect(app.hasHeading).toBe(true);
+  }));
 
   describe("interacting with a button", () => {
     it("not showing message on page load", () => {

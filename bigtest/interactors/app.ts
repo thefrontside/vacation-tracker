@@ -1,4 +1,10 @@
-import { interactor, isPresent, clickable, text, collection } from '@bigtest/interactor';
+import {
+  clickable,
+  collection,
+  interactor,
+  isPresent,
+  text,
+} from '@bigtest/interactor';
 
 @interactor
 class AppInteractor {
