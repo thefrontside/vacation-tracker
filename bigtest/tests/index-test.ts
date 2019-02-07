@@ -8,9 +8,9 @@ import DetailPage from '../interactors/detail-page';
 import IndexPage from '../interactors/index-page';
 
 describe('IndexRoute', () => {
-  let app = new IndexPage();
-  let create = new CreatePage();
-  let detail = new DetailPage();
+  const app = new IndexPage();
+  const create = new CreatePage();
+  const detail = new DetailPage();
 
   setupApp(AppModule);
 
@@ -38,31 +38,31 @@ describe('IndexRoute', () => {
     //   });
     // });
   });
-  
+
   describe('list of requests', () => {
-    it('displays each item', () => {
+    it('displays each item', when(() => {
       expect(app.requestList().length).toBe(4);
-    });
+    }));
 
     describe('for each request', () => {
-      it('displays requestee field', () => {
+      it('displays requestee field', when(() => {
         expect(app.requestList(0).ownerName).toBe('Larry');
-      });
+      }));
 
-      it('displays status field', () => {
+      it('displays status field', when(() => {
         expect(app.requestList(0).status.label).toBe('Status');
         expect(app.requestList(0).status.text).toBe('Approved');
-      });
+      }));
 
-      it('displays start date field', () => {
+      it('displays start date field', when(() => {
         expect(app.requestList(0).startDate.label).toBe('Start date');
         expect(app.requestList(0).startDate.text).toBe('01-01-2019');
-      });
+      }));
 
-      it('displays end date field', () => {
+      it('displays end date field', when(() => {
         expect(app.requestList(0).endDate.label).toBe('End date');
         expect(app.requestList(0).endDate.text).toBe('12-31-2019');
-      });
+      }));
 
       // describe('selecting for edit', () => {
       //   beforeEach(() => {

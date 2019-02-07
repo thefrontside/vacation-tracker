@@ -1,10 +1,10 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export class Product {
-  title: String = "";
+  title: String = '';
   date: Date = null;
 
   constructor({ title, date }) {
@@ -18,15 +18,15 @@ interface ProductsPayload {
 }
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class ProductsService {
-  API_URL: string = "/api/";
+  API_URL = '/api/';
 
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
-    return this.http.get(this.API_URL + "products")
+    return this.http.get(this.API_URL + 'products')
       .pipe(
         map((data: ProductsPayload) => data.products.map(d => new Product(d)))
       );

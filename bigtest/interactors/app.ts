@@ -14,7 +14,7 @@ class AppInteractor {
   messageIsPresent = isPresent('[data-test-message]');
   clickToggleButton = clickable('[data-test-toggle-button]');
 
-  helloWorldText = text('hello-world');
+  helloWorldText = text('app-hello-world');
 
   productList = collection('[data-test-product]');
 

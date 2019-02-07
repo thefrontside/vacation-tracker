@@ -10,7 +10,6 @@ if (environment.production) {
 }
 
 if (environment.MIRAGE_SCENARIO) {
-  console.log('mirage scenario: ', environment.MIRAGE_SCENARIO);
   startMirage(environment.MIRAGE_SCENARIO.split(','));
 }
 
