@@ -1,0 +1,40 @@
+<div class="level is-mobile" data-test-request-list-item>
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading is-6">Requestee</p>
+      <p class="title is-5" data-test-owner-name>{{request.owner}}</p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div data-test-start-date>
+      <p class="heading is-6" data-test-label>Start date</p>
+      <p class="title is-5" data-test-value>{{startDate}}</p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div data-test-end-date>
+      <p class="heading is-6" data-test-label>End date</p>
+      <p class="title is-5" data-test-value>{{endDate}}</p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <div data-test-status>
+      <p class="heading is-6" data-test-label>Status</p>
+      <p class="title is-5" data-test-value>{{request.status}}</p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered">
+    <button class="button" data-test-edit-icon>
+      <span class="icon">
+        <i class="fas fa-edit"></i>
+      </span>
+    </button>
+  </div>
+  <div class="level-item has-text-centered">
+    <button class="button is-danger" data-test-delete-icon>
+      <span class="icon">
+        <i class="fas fa-trash"></i>
+      </span>
+    </button>
+  </div>
+</div>

@@ -3,15 +3,17 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HelloWorldComponent } from './hello-world.component';
-import { ProductsComponent } from './products/products.component';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
+import { RequestsComponent } from './requests/requests.component';
+import { RequestListComponent } from './request-list/request-list.component';
+import { RequestListItemComponent } from './request-list-item/request-list-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HelloWorldComponent,
-    ProductsComponent
+    RequestsComponent,
+    RequestListComponent,
+    RequestListItemComponent,
   ],
   imports: [
     BrowserModule,
